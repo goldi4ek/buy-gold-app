@@ -1,0 +1,46 @@
+{% extends "base.html" %} {% block title %} User info {% endblock %} {% block
+content %}
+<nav>
+  <a href="{{ url_for('root', user_id=user['user_id']) }}"
+    ><img
+      src="{{ url_for('static', path='images/back-icon.svg') }}"
+      alt="back"
+      height="30"
+      width="30"
+  /></a>
+</nav>
+
+<div class="main-content">
+  <div class="user-details">
+    <div class="user-photo">
+      {% if photo %}
+      <img src="{{ photo }}" alt="User Photo" />
+      {% else %}
+      <img
+        src="{{ url_for('static', path='images/user-image.svg')}}"
+        alt="Default Image"
+      />
+      {% endif %}
+    </div>
+    <div class="user-name">{{ user["username"] }}</div>
+  </div>
+  <div class="user-balance">
+    <div class="silver-balance-field">
+      <img
+        src="{{ url_for('static', path='images/silver.svg') }}"
+        alt="silver balance"
+        height="40"
+        width="40"
+      /><span class="silver-balance">{{ user["silver"] }}</span>
+    </div>
+    <div class="gold-balance-field">
+      <img
+        src="{{ url_for('static', path='images/gold.svg') }}"
+        alt="gold balance"
+        height="40"
+        width="40"
+      /><span class="gold-balance">{{ user["gold"] }}</span>
+    </div>
+  </div>
+</div>
+{% endblock %}

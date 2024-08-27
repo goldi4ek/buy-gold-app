@@ -1,0 +1,71 @@
+{% extends "base.html" %} {% block title %}Main{% endblock %} {% block content
+%}
+<div class="user-info">
+  <div class="silver-balance-field">
+    <img
+      src="{{ url_for('static', path='images/silver.svg') }}"
+      alt="silver balance"
+      height="30"
+      width="30"
+    /><span class="silver-balance">{{ user["silver"]|round(3) }}</span>
+  </div>
+  <div class="gold-balance-field">
+    <img
+      src="{{ url_for('static', path='images/gold.svg') }}"
+      alt="gold balance"
+      height="30"
+      width="30"
+    /><span class="gold-balance">{{ user["gold"]|round(3) }}</span>
+  </div>
+  <div class="personal-info">
+    <a href="{{ url_for('user_info', user_id=user['user_id']) }}"
+      ><img
+        src="{{ url_for('static', path='images/user-image.svg') }}"
+        alt="User info"
+        height="30"
+        width="30"
+    /></a>
+  </div>
+</div>
+<div class="main-content">
+  <h1 class="header">BUY GOLD</h1>
+  <div class="title-icon">
+    <img
+      src="{{ url_for('static', path='images/gold.svg') }}"
+      alt="gold coin"
+      height="200"
+      width="200"
+    />
+  </div>
+  <div class="price">
+    Price: <span class="gold-price">{{ gold_price }}</span> silver
+  </div>
+  <div class="functional-buttons">
+    <button class="buy">Buy</button>
+    <input
+      type="text"
+      inputmode="decimal"
+      pattern="[0-9]*[.,]?[0-9]*"
+      class="input-value"
+    />
+    <button class="sell">Sell</button>
+  </div>
+</div>
+<h1 class="users-header">App users</h1>
+<div class="users">
+  {% for user in users %}
+  <div class="users-info">
+    <div class="users-name">{{ user["username"] }}</div>
+    <div class="users-balance">
+      <img
+        src="{{ url_for('static', path='images/silver.svg') }}"
+        alt="silver balance"
+        height="20"
+        width="20"
+      />{{ ((user["silver"]|float) + (user["gold"]|float) *
+      (gold_price|float))|round(2) }}
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}
